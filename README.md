@@ -18,18 +18,13 @@ A secure, premium, and local-first contact manager built with Python (FastAPI) a
 
 ## Installation & Setup
 
-1. **Navigate to the project directory**:
-   ```bash
-   cd CLI
-   ```
-
-2. **Install dependencies**:
+1. **Install dependencies**:
    Make sure you have Python 3 installed, then install the required Python packages (or activate your conda environment):
    ```bash
    pip install fastapi uvicorn pydantic
    ```
 
-3. **Run the application**:
+2. **Run the application**:
    ```bash
    python3 ft.py
    ```

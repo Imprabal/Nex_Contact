@@ -1,0 +1,13 @@
+# Python Cache
+__pycache__/
+*.pyc
+
+# Local Database
+contacts.json
+
+# Environment/IDE
+.env
+.venv/
+env/
+venv/
+.DS_Store

@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NexContact | Professional Contact Directory</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <script src="/static/lucide.min.js"></script>
+
+    <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+    <div class="app-container">
+
+        <header class="app-header">
+            <div class="header-brand">
+                <div class="logo-icon">
+                    <i data-lucide="book-open"></i>
+                </div>
+                <div>
+                    <h1>NexContact</h1>
+                    <p class="subtitle">Secure Contact Manager</p>
+                </div>
+            </div>
+
+            <div class="header-actions">
+                <button id="themeToggle" class="btn-icon" aria-label="Toggle light/dark theme">
+                    <i data-lucide="sun" class="sun-icon"></i>
+                    <i data-lucide="moon" class="moon-icon"></i>
+                </button>
+                <button id="addContactBtn" class="btn-primary">
+                    <i data-lucide="user-plus"></i>
+                    <span>Add Contact</span>
+                </button>
+            </div>
+        </header>
+
+        <section class="stats-bar">
+            <div class="stat-card">
+                <div class="stat-icon-wrapper blue">
+                    <i data-lucide="users"></i>
+                </div>
+                <div class="stat-info">
+                    <span class="stat-value" id="statTotal">0</span>
+                    <span class="stat-label">Total Contacts</span>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon-wrapper green">
+                    <i data-lucide="phone"></i>
+                </div>
+                <div class="stat-info">
+                    <span class="stat-value" id="statPhone">0</span>
+                    <span class="stat-label">With Phone</span>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon-wrapper purple">
+                    <i data-lucide="mail"></i>
+                </div>
+                <div class="stat-info">
+                    <span class="stat-value" id="statEmail">0</span>
+                    <span class="stat-label">With Email</span>
+                </div>
+            </div>
+        </section>
+
+        <main class="app-main">
+
+            <section class="toolbar">
+                <div class="search-box">
+                    <i data-lucide="search" class="search-icon"></i>
+                    <input type="text" id="searchInput" placeholder="Search contacts by name, email, or phone...">
+                    <button id="clearSearch" class="clear-search-btn" aria-label="Clear search">
+                        <i data-lucide="x"></i>
+                    </button>
+                </div>
+
+                <div class="view-controls">
+                    <span class="view-label">Layout:</span>
+                    <div class="toggle-group">
+                        <button id="gridViewBtn" class="btn-toggle active" aria-label="Grid View">
+                            <i data-lucide="layout-grid"></i>
+                        </button>
+                        <button id="listViewBtn" class="btn-toggle" aria-label="List View">
+                            <i data-lucide="list"></i>
+                        </button>
+                    </div>
+                </div>
+            </section>
+
+            <section class="contacts-wrapper">
+
+                <div id="emptyState" class="empty-state hidden">
+                    <div class="empty-illustration">
+                        <i data-lucide="contact-2"></i>
+                    </div>
+                    <h3>No contacts found</h3>
+                    <p>Try refining your search or add a new contact to get started.</p>
+                    <button id="emptyStateAddBtn" class="btn-secondary">
+                        <i data-lucide="plus"></i>
+                        <span>Add Your First Contact</span>
+                    </button>
+                </div>
+
+                <div id="contactsContainer" class="contacts-grid">
+
+                </div>
+            </section>
+        </main>
+
+        <footer class="app-footer">
+            <p>&copy; 2026 NexContact. Local data storage enabled.</p>
+        </footer>
+    </div>
+
+    <div id="contactModal" class="modal-overlay">
+        <div class="modal-content">
+            <header class="modal-header">
+                <h2 id="modalTitle">Add New Contact</h2>
+                <button id="closeModalBtn" class="btn-icon" aria-label="Close modal">
+                    <i data-lucide="x"></i>
+                </button>
+            </header>
+            <form id="contactForm" novalidate>
+                <input type="hidden" id="originalName">
+
+                <div class="form-group">
+                    <label for="contactName">Full Name</label>
+                    <div class="input-wrapper">
+                        <i data-lucide="user" class="input-icon"></i>
+                        <input type="text" id="contactName" required placeholder="e.g. John Doe">
+                    </div>
+                    <span class="error-message" id="nameError">Name is required</span>
+                </div>
+
+                <div class="form-group">
+                    <label for="contactPhone">Phone Number</label>
+                    <div class="input-wrapper">
+                        <i data-lucide="phone" class="input-icon"></i>
+                        <input type="tel" id="contactPhone" placeholder="e.g. +1 (555) 019-2834">
+                    </div>
+                    <span class="error-message" id="phoneError">Please enter a valid phone number</span>
+                </div>
+
+                <div class="form-group">
+                    <label for="contactEmail">Email Address</label>
+                    <div class="input-wrapper">
+                        <i data-lucide="mail" class="input-icon"></i>
+                        <input type="email" id="contactEmail" placeholder="e.g. john.doe@example.com">
+                    </div>
+                    <span class="error-message" id="emailError">Please enter a valid email address</span>
+                </div>
+
+                <footer class="modal-footer">
+                    <button type="button" id="cancelModalBtn" class="btn-secondary">Cancel</button>
+                    <button type="submit" id="saveContactBtn" class="btn-primary">
+                        <i data-lucide="save"></i>
+                        <span>Save Contact</span>
+                    </button>
+                </footer>
+            </form>
+        </div>
+    </div>
+
+    <div id="deleteModal" class="modal-overlay">
+        <div class="modal-content confirmation-modal">
+            <div class="confirmation-icon warning">
+                <i data-lucide="alert-triangle"></i>
+            </div>
+            <h2>Delete Contact?</h2>
+            <p>Are you sure you want to delete <strong id="deleteTargetName">john</strong>? This action cannot be undone.</p>
+            <footer class="modal-footer">
+                <button type="button" id="cancelDeleteBtn" class="btn-secondary">Cancel</button>
+                <button type="button" id="confirmDeleteBtn" class="btn-danger">
+                    <i data-lucide="trash-2"></i>
+                    <span>Delete</span>
+                </button>
+            </footer>
+        </div>
+    </div>
+
+    <div id="toastContainer" class="toast-container"></div>
+
+    <script src="/static/app.js"></script>
+</body>
+</html>
